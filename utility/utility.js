@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken')
 function setCookie(user, res) {
     let token = jwt.sign({ payload: user._id },`${process.env.COOKIE_TOKEN_KEY}`);
     res.cookie('token', token, { maxAge: 1000 * 60 * 5, httpOnly: true ,
-     sameSite:process.env.NODE_ENV==='DEVELOPMENT'?'lax':'none',
-     secure:process.env.NODE_ENV==='DEVELOPMENT'?false:true,
+     sameSite:'none',
+     secure:true,
     })
 
 }
