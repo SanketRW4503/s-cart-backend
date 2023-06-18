@@ -27,7 +27,10 @@ const userSchema = mongoose.Schema({
         validate: function () {
             return this.password === this.confirmpassword ? true : false
         }
-    }
+    },address: {
+        type: String,
+        required: false
+    },
 });
 
 
