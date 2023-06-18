@@ -8,6 +8,7 @@ function setCookie(user, res) {
         sameSite: 'none', 
         secure: true
     })
+    res.json({ success: true, messgae: "User Succesfully created !" });
 
 }
 

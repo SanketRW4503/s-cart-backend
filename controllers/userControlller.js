@@ -8,8 +8,7 @@ async function signupHandler(req, res) {
     try {
 
         let user = await userModel.create(req.body);
-        setCookie(user, res)
-        res.json({ success: true, messgae: "User Succesfully created !" })
+        setCookie(user, res);
 
 
     } catch (err) {
