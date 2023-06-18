@@ -54,7 +54,7 @@ async function loginUser(req, res) {
         if (result) {
             bcrypt.compare(req.body.password, result.password).then((r) => {
                 if (r) {
-                    setCookie(result, res,'user login success')
+                    setCookie(result, res,`welcome back ${result.name} !`)
                    
                 } else {
                     res.json({ success: false, message: "INVALID EMAIL OR PASSWORD" })
