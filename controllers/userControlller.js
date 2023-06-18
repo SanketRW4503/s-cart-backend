@@ -27,7 +27,10 @@ async function logoutUser(req, res) {
 
         let d = req.cookies.token
         if (d) {
-            res.clearCookie('token');
+            res.clearCookie('token',{
+            secure: true, // Only send the cookie over HTTPS
+            sameSite: 'none', // Allow cross-site access
+  });
             res.json({ success: true, messgae: "user successfully logout" })
 
         } else {
