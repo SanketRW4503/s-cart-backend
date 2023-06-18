@@ -8,7 +8,7 @@ function setCookie(user, res,rec_message) {
         sameSite: 'none', 
         secure: true
     })
-    res.json({ success: true, messgae: rec_message });
+    res.json({ success: true, message: rec_message });
 
 }
 
