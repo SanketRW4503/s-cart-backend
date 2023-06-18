@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken')
 
 
 // sets cookies
-function setCookie(user, res) {
+function setCookie(user, res,rec_message) {
     let token = jwt.sign({ payload: user._id },`${process.env.COOKIE_TOKEN_KEY}`);
     res.cookie('token', token, { maxAge: 1000 * 60 * 5, httpOnly: true ,
         sameSite: 'none', 
         secure: true
     })
-    res.json({ success: true, messgae: "User Succesfully created !" });
+    res.json({ success: true, messgae: rec_message });
 
 }
 

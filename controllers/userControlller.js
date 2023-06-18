@@ -8,7 +8,7 @@ async function signupHandler(req, res) {
     try {
 
         let user = await userModel.create(req.body);
-        setCookie(user, res);
+        setCookie(user, res,'user successfully created');
 
 
     } catch (err) {
@@ -54,8 +54,8 @@ async function loginUser(req, res) {
         if (result) {
             bcrypt.compare(req.body.password, result.password).then((r) => {
                 if (r) {
-                    setCookie(result, res)
-                    res.json({ success: true, message: "user login success !" });
+                    setCookie(result, res,'user login success')
+                   
                 } else {
                     res.json({ success: false, message: "INVALID EMAIL OR PASSWORD" })
 
