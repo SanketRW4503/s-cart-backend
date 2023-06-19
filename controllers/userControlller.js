@@ -20,7 +20,7 @@ async function signupHandler(req, res) {
 
 
 
-// log out 
+// log out :this function will work for user and admin also
 async function logoutUser(req, res) {
 
     try {
@@ -31,10 +31,10 @@ async function logoutUser(req, res) {
             secure: true, // Only send the cookie over HTTPS
             sameSite: 'none', // Allow cross-site access
   });
-            res.json({ success: true, messgae: "user successfully logout" })
+            res.json({ success: true, messgae: "successfully logout" })
 
         } else {
-            res.json({ success: false, messgae: "user is not login ! Login First" })
+            res.json({ success: false, messgae: "Login First !" })
         }
 
     } catch (err) {

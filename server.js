@@ -1,6 +1,7 @@
 const express = require('express')
 const productsRouter = require('./routes/productsRout')
 const userRouter = require('./routes/userRout')
+const adminRouter= require('./routes/adminRout')
 const cookieParser = require('cookie-parser');
 const {config}= require('dotenv')
 const connect_to_db = require('./database/db')
@@ -44,3 +45,5 @@ app.listen(process.env.PORT, () => {
 app.use('/products', productsRouter)
 
 app.use('/user', userRouter)
+
+app.use('/admin', adminRouter)
