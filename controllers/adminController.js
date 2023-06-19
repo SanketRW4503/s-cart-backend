@@ -41,4 +41,22 @@ async function signupadmin(req, res) {
 }
 
 
-module.exports = { loginhandle, signupadmin }
+async function adminloginStatus(req,res){
+    try {
+        let d = req.cookies.token
+        if (d) {
+            res.json({ success: true, message: "Admin already login !" })
+
+        } else {
+            res.json({ success: false, message: "Dear Admin please login to access your site !" })
+
+            
+
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = { loginhandle, signupadmin ,adminloginStatus}
