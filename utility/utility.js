@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const adminModel = require('../models/adminModel');
 
 
 // sets cookies
@@ -65,4 +66,22 @@ function isUserAlreadyNotLogin(req, res, next) {
 }
 
 
-module.exports = { setCookie, getCurrentUserID, isUserAlreadyLogin, isUserAlreadyNotLogin };
+
+// is this admin ?
+
+async function is_this_admin(req,res,next){
+    try {
+        decoded_payload = jwt.decode(req.cookies.token)
+       
+        let result = await adminModel.findOne({ _id: decoded_payload.payload })
+        if(result){
+            next();
+        }
+    } catch (error) {
+        res.json({ success: false, message:'its seems like its not our admin [Login Again & Try ]' })
+    }
+
+}
+
+
+module.exports = { setCookie, getCurrentUserID, isUserAlreadyLogin, isUserAlreadyNotLogin ,is_this_admin};
