@@ -4,8 +4,10 @@ const adminModel = require('../models/adminModel');
 
 // sets cookies
 function setCookie(user, res,rec_message) {
+    const nextDay = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+
     let token = jwt.sign({ payload: user._id },`${process.env.COOKIE_TOKEN_KEY}`);
-    res.cookie('token', token, { maxAge: 1000 * 60 * 5, httpOnly: true ,
+    res.cookie('token', token, { expires: nextDay, httpOnly: true ,
         sameSite: 'none', 
         secure: true
     })
