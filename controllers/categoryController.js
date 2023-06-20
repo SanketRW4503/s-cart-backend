@@ -37,4 +37,21 @@ async function get_category(req,res) {
     }
 }
 
-module.exports = { set_category, get_category }
+
+// delete category
+
+async function delete_category(req,res){
+
+    try {
+        const result= await categoryModel.deleteOne({category:req.body.category});
+        if(result.deletedCount==1){
+            res.json({success:true,message:'Category Cucessfully Deleted !'})
+        }else{
+            res.json({success:false,message:'Category Not Found!'})
+
+        }
+    } catch (error) {
+        res.json({success:false,error})
+    }
+}
+module.exports = { set_category, get_category,delete_category }

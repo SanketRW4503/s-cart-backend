@@ -77,7 +77,7 @@ async function is_this_admin(req,res,next){
             next();
         }
     } catch (error) {
-        res.json({ success: false, message:'INVALID CREDENTIAL' })
+        res.json({ success: false, message:'Authorised Admin Login Required !' })
     }
 
 }
