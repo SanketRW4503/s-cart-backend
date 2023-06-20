@@ -4,6 +4,7 @@ const adminModel = require('../models/adminModel');
 
 // sets cookies
 function setCookie(user, res,rec_message) {
+    const currentDate= new Date()
     const nextDay = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
 
     let token = jwt.sign({ payload: user._id },`${process.env.COOKIE_TOKEN_KEY}`);
