@@ -50,8 +50,6 @@ async function adminloginStatus(req,res){
         } else {
             res.json({ success: false, message: "Dear Admin please login to access your site !" })
 
-            
-
         }
 
     } catch (error) {

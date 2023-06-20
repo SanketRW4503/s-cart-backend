@@ -72,13 +72,12 @@ function isUserAlreadyNotLogin(req, res, next) {
 async function is_this_admin(req,res,next){
     try {
         decoded_payload = jwt.decode(req.cookies.token)
-       
-        let result = await adminModel.findOne({ _id: decoded_payload.payload })
+        let result = await adminModel.find({ _id: decoded_payload.payload })
         if(result){
             next();
         }
     } catch (error) {
-        res.json({ success: false, message:'its seems like its not our admin [Login Again & Try ]' })
+        res.json({ success: false, message:'INVALID CREDENTIAL' })
     }
 
 }
