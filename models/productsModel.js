@@ -24,6 +24,9 @@ const productsSchema= new mongoose.Schema({
     imageUrl:{
         type:String,
         required:true
+    },rating:{
+        type:String,
+        required:true
     },
     addedAt:{
         type:Date,
