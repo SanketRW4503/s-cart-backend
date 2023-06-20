@@ -11,14 +11,14 @@ async function set_category(req, res) {
         if (already_exits == null) {
             const result = await categoryModel.create(req.body)
             if (result !== null) {
-                res.json({ sucess: true, message: 'Category Successfully Added !' });
+                res.json({ success: true, message: 'Category Successfully Added !' });
             }
         } else {
-            res.json({ sucess: false, message: 'Category Already Exists !' })
+            res.json({ success: false, message: 'Category Already Exists !' })
         }
 
     } catch (error) {
-        res.json({ sucess: false, message: 'Some Error Occured !' })
+        res.json({ success: false, message: 'Some Error Occured !' })
     }
 
 }
@@ -54,4 +54,5 @@ async function delete_category(req,res){
         res.json({success:false,error})
     }
 }
+
 module.exports = { set_category, get_category,delete_category }
