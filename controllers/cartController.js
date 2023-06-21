@@ -11,7 +11,7 @@ async function add_to_cart(req, res) {
             console.log('already exists')
 
             // update :
-            let itemIndex = cart.products.findIndex((p) => p.productId == req.body?.products[0].productId);
+            let itemIndex = cart.products.findIndex((p) => p._id == req.body?.products[0]._id);
 
             if (itemIndex > -1) {
                 // update the quantity of product becouse it already exits
@@ -44,7 +44,7 @@ async function delete_one_item_cart(req,res){
     let cart = await cartModel.findOne({ userid: req.body.userid })
 
     if(cart){
-        let itemIndex = cart.products.findIndex((p) => p.productId == req.body?.productId);
+        let itemIndex = cart.products.findIndex((p) => p._id == req.body?._id);
         if(itemIndex>-1){
             cart.products.splice(itemIndex,1);
             cart = await cart.save();
@@ -68,7 +68,7 @@ async function remove_one_item_cart(req,res){
     let cart = await cartModel.findOne({ userid: req.body.userid })
 
     if(cart){
-        let itemIndex = cart.products.findIndex((p) => p.productId == req.body?.productId);
+        let itemIndex = cart.products.findIndex((p) => p._id == req.body?._id);
         if(itemIndex>-1){
 
             if(cart.products[itemIndex].quantity==1){
