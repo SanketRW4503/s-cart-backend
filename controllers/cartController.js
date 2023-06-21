@@ -1,5 +1,5 @@
 
-const cartModel = require('../models/cartModel')
+const cartModel = require('../models/cartModel');
 
 // add item to cart 
 async function add_to_cart(req, res) {
@@ -114,5 +114,25 @@ async function empty_cart(req,res){
 
 
 
+// get all cart items
 
-module.exports = {add_to_cart,delete_one_item_cart,empty_cart,remove_one_item_cart}
+async function get_cart_items(req,res){
+ 
+    try {
+        const result= await cartModel.findOne({userid:req.body.userid});
+        if(result!==null){
+
+            res.json({success:true,items:result.products});
+        }else{
+            res.json({success:false,message:'No Record Found !'})
+        }
+    } catch (error) {
+            res.json({success:false,message:'some error occured !'})
+    }
+
+}
+
+
+
+
+module.exports = {add_to_cart,delete_one_item_cart,empty_cart,remove_one_item_cart,get_cart_items}
