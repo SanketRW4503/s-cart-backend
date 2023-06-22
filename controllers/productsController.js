@@ -29,4 +29,22 @@ async function setProduct(req, res) {
 
 }
 
-module.exports = { fetchAllProduct, setProduct }
+async function updateProduct(req,res){
+    
+    try {
+        let result = await productModel.findOne({_id:req.body.productid})
+        if(result!==null){
+            
+            result=req.body.updatedata;
+
+            result= await result.save()
+            res.json({success:true,message:'Product Sucessfully Updated !'})
+        }
+        
+    } catch (error) {   
+
+        res.json({success:false,error})
+    }
+}
+
+module.exports = { fetchAllProduct, setProduct ,updateProduct}
