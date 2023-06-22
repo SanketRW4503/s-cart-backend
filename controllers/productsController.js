@@ -32,13 +32,22 @@ async function setProduct(req, res) {
 async function updateProduct(req,res){
     
     try {
-        let result = await productModel.findOne({_id:req.body.productid})
+        let result = await productModel.findById({_id:req.body.productid})
+        console.log(result)
         if(result!==null){
-            
-            result=req.body.updatedata;
+            console.log(req.body.updatedata)
+            result.title=req.body.updatedata.title;        
+            result.category=req.body.updatedata.category;
+            result.imageUrl=req.body.updatedata.imageUrl;
+            result.price=req.body.updatedata.price;
+            result.quantity=req.body.updatedata.quantity;
+            result.rating=req.body.updatedata.rating;
+            result.description=req.body.updatedata.description;
 
             result= await result.save()
             res.json({success:true,message:'Product Sucessfully Updated !'})
+        }else{
+            res.json({success:false,message:'Some Error Occured'})
         }
         
     } catch (error) {   
