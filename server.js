@@ -19,7 +19,7 @@ const app = express();
 
 // Use cors middleware
 app.use(cors({
-  origin: '*',
+  origin: 'https://ss-kart-231bd.web.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
