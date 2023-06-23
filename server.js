@@ -10,7 +10,6 @@ import connect_to_db from './database/db.js';
 import cors from 'cors';
 import Razorpay from 'razorpay'
 
-// Rest of your code
 
 
 
@@ -28,7 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.use(cors({
-    origin:["*"],
+    origin:["https://ss-kart-231bd.web.app"],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }));
