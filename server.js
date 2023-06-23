@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin:["https://ss-kart-231bd.web.app","http://razorpay-webhook-url.com"],
+    origin:["https://ss-kart-231bd.web.app","http://api.razorpay.com","https://s-kart-backend.onrender.com/"],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }));
