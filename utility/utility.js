@@ -22,6 +22,8 @@ function setCookie(user, res,rec_message) {
 function getCurrentUserID(req) {
     try {
         decoded_payload = jwt.decode(req.cookies.token)
+        console.log('decoded'+decoded_payload.payload);
+
         return decoded_payload.payload;
     } catch (error) {
         console.log(error);
@@ -34,6 +36,7 @@ function isUserAlreadyLogin(req, res, next) {
     try {
         let d = req.cookies.token
         if (d) {
+            console.log('cookie re'+d);
             next()
 
         } else {
