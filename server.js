@@ -23,15 +23,19 @@ config({
 
 
 const app = express();
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+// Use cookie-parser middleware
+app.use(cookieParser());
+
+
 app.use(cors({
-    origin:["https://ss-kart-231bd.web.app"],
+    origin:["https://ss-kart-231bd.web.app","http://razorpay-webhook-url.com"],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }));
-
 
 
 
@@ -42,8 +46,7 @@ connect_to_db()
 
 
 
-// Use cookie-parser middleware
-app.use(cookieParser());
+
 
 
     
