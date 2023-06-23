@@ -1,5 +1,5 @@
-const mongoose= require('mongoose')
-const bcrypt= require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 
 
@@ -28,4 +28,4 @@ adminSchema.pre('save',async function(){
 const adminModel= mongoose.model('adminModel',adminSchema);
 
 
-module.exports= adminModel;
+export default  adminModel;

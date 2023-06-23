@@ -1,7 +1,9 @@
-const express = require('express')
-const { loginhandle, signupadmin,adminloginStatus } = require('../controllers/adminController')
-const { logoutUser } = require('../controllers/userControlller')
-const { isUserAlreadyNotLogin, isUserAlreadyLogin } = require('../utility/utility')
+import express from 'express';
+import { loginhandle, signupadmin, adminloginStatus } from '../controllers/adminController.js';
+import { logoutUser } from '../controllers/userControlller.js';
+import { isUserAlreadyNotLogin, isUserAlreadyLogin } from '../utility/utility.js';
+
+
 
 
 const router = express.Router()
@@ -12,4 +14,4 @@ router.post('/login', isUserAlreadyNotLogin,loginhandle)
     .get('/logout',isUserAlreadyLogin, logoutUser)
     .get('/loginStatus',adminloginStatus)
 
-module.exports = router;
+export default router;

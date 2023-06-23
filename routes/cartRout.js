@@ -1,6 +1,6 @@
-const express= require('express');
-const {add_to_cart,delete_one_item_cart,empty_cart,remove_one_item_cart,get_cart_items} = require('../controllers/cartController')
-const {  isUserAlreadyLogin } = require('../utility/utility')
+import express from 'express';
+import { add_to_cart, delete_one_item_cart, empty_cart, remove_one_item_cart, get_cart_items } from '../controllers/cartController.js';
+import { isUserAlreadyLogin } from '../utility/utility.js';
 
 const router = express.Router()
 
@@ -12,4 +12,4 @@ router.post('/add',isUserAlreadyLogin,add_to_cart)
 
 
 
-module.exports= router;
+export default router;

@@ -1,4 +1,4 @@
-const productModel = require('../models/productsModel')
+import productModel from '../models/productsModel.js';
 
 
 // no authentication required
@@ -56,4 +56,4 @@ async function updateProduct(req,res){
     }
 }
 
-module.exports = { fetchAllProduct, setProduct ,updateProduct}
+export { fetchAllProduct, setProduct, updateProduct };

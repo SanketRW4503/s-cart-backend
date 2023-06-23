@@ -1,7 +1,7 @@
-const userModel = require('../models/userModel')
+import userModel from '../models/userModel.js';
+import bcrypt from 'bcrypt';
+import { setCookie, getCurrentUserID } from '../utility/utility.js';
 
-const bcrypt = require('bcrypt');
-const { setCookie, getCurrentUserID } = require('../utility/utility')
 
 async function signupHandler(req, res) {
 
@@ -93,4 +93,4 @@ async function getUserInfo(req, res) {
 
 
 
-module.exports = { signupHandler, logoutUser, loginUser, getUserInfo };
+export { signupHandler, logoutUser, loginUser, getUserInfo };

@@ -1,5 +1,5 @@
 
-const cartModel = require('../models/cartModel');
+import cartModel from '../models/cartModel.js';
 
 // add item to cart 
 async function add_to_cart(req, res) {
@@ -135,4 +135,4 @@ async function get_cart_items(req,res){
 
 
 
-module.exports = {add_to_cart,delete_one_item_cart,empty_cart,remove_one_item_cart,get_cart_items}
+export { add_to_cart, delete_one_item_cart, empty_cart, remove_one_item_cart, get_cart_items };

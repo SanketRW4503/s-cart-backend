@@ -1,7 +1,10 @@
-const express = require('express')
-const { signupHandler, logoutUser, loginUser, getUserInfo } = require('../controllers/userControlller')
-const { isUserAlreadyNotLogin, isUserAlreadyLogin } = require('../utility/utility')
-const cartRout = require('./cartRout');
+import express from 'express';
+import { signupHandler, logoutUser, loginUser, getUserInfo } from '../controllers/userControlller.js';
+import { isUserAlreadyNotLogin, isUserAlreadyLogin } from '../utility/utility.js';
+import cartRout from './cartRout.js';
+
+// Rest of your code
+
 
 
 const router = express.Router()
@@ -14,4 +17,4 @@ router.get('/myProfile', isUserAlreadyLogin, getUserInfo)
 
 router.use('/cart', cartRout)
 
-module.exports = router;
+export default router;

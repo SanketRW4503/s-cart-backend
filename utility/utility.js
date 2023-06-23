@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const adminModel = require('../models/adminModel');
+import jwt from 'jsonwebtoken';
+import adminModel from '../models/adminModel.js';
 
 
 // sets cookies
@@ -86,4 +86,4 @@ async function is_this_admin(req,res,next){
 }
 
 
-module.exports = { setCookie, getCurrentUserID, isUserAlreadyLogin, isUserAlreadyNotLogin ,is_this_admin};
+export { setCookie, getCurrentUserID, isUserAlreadyLogin, isUserAlreadyNotLogin, is_this_admin };

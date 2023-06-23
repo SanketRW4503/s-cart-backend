@@ -1,4 +1,4 @@
-const categoryModel = require("../models/categoryModel")
+import categoryModel from '../models/categoryModel.js';
 
 
 
@@ -84,4 +84,4 @@ async function update_category(req,res){
     }
 }
 
-module.exports = { set_category, get_category,delete_category,update_category }
+export { set_category, get_category, delete_category, update_category };

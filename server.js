@@ -1,12 +1,17 @@
-const express = require('express')
-const productsRouter = require('./routes/productsRout')
-const userRouter = require('./routes/userRout')
-const adminRouter= require('./routes/adminRout')
-const categoryRouter = require('./routes/categoryRout')
-const cookieParser = require('cookie-parser');
-const {config}= require('dotenv')
-const connect_to_db = require('./database/db')
-const cors = require('cors')
+import  express  from 'express'
+import productsRouter from './routes/productsRout.js'
+import adminRouter from './routes/adminRout.js'
+import userRouter from './routes/userRout.js'
+import categoryRouter from './routes/categoryRout.js'
+import paymentRouter from './routes/paymentRout.js';
+import cookieParser from 'cookie-parser';
+import { config } from 'dotenv';
+import connect_to_db from './database/db.js';
+import cors from 'cors';
+import Razorpay from 'razorpay'
+
+// Rest of your code
+
 
 
 
@@ -21,11 +26,13 @@ config({
 const app = express();
 app.use(express.json())
 
+
 app.use(cors({
     origin:["*"],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true
 }));
+
 
 
 
@@ -39,9 +46,18 @@ connect_to_db()
 // Use cookie-parser middleware
 app.use(cookieParser());
 
+
+    
+export const instance = new Razorpay({
+    key_id:process.env.RAZORPAY_API_KEY,
+    key_secret: process.env.RAZORPAY_SECRETE_KEY,
+})
+
 app.listen(process.env.PORT, () => {
     console.log('Server is started');
 })
+
+
 
 app.use('/products', productsRouter)
 
@@ -51,4 +67,7 @@ app.use('/admin', adminRouter)
 
 
 app.use('/category', categoryRouter)
+
+app.use('/payment', paymentRouter)
+
 

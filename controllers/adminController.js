@@ -1,7 +1,7 @@
-const adminModel = require('../models/adminModel')
-const { setCookie} = require('../utility/utility')
+import adminModel from '../models/adminModel.js';
+import { setCookie } from '../utility/utility.js';
 
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 
 
@@ -57,4 +57,4 @@ async function adminloginStatus(req,res){
     }
 }
 
-module.exports = { loginhandle, signupadmin ,adminloginStatus}
+export { loginhandle, signupadmin, adminloginStatus };
