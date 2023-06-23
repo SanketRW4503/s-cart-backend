@@ -1,25 +1,24 @@
 import { instance } from '../server.js';
+import crypto, { Hmac } from 'crypto'
 
 
 
 
 
 
-
-async function checkoutfun(req, res) {
+export const checkoutfun = async (req, res) => {
     console.log('request hit');
     const options = {
-        amount: Number(req.body.amount*100),
+        amount: Number(req.body.amount * 100),
         currency: 'INR',
     }
 
     try {
         const order = await instance.orders.create(options);
-
-        res.json({success:true,order})
+        res.json({ success: true, order })
     } catch (error) {
-            res.status(400).json({success:false})
-    }   
+        res.status(400).json({ success: false })
+    }
 
 
 }
@@ -27,4 +26,29 @@ async function checkoutfun(req, res) {
 
 
 
-export default checkoutfun;
+
+export const payment_verification = async (req, res) => {
+const body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id
+
+    const generated_signature = crypto
+    .createHmac('sha256','rzt7YdCdZJKwOEpr4JCwtJKg')
+    .update(body.toString())
+    .digest('hex')
+
+
+    
+  
+    if (generated_signature === req.body.razorpay_signature) {
+
+        res.redirect(`https://ss-kart-231bd.web.app/payment/success/${req.body.razorpay_order_id}`)
+    } else{
+        res.status(400).json({success:false,message:'Payment Failed'})
+    } 
+
+
+}
+
+
+
+
+
