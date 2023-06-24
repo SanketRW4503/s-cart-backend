@@ -21,8 +21,7 @@ function setCookie(user, res,rec_message) {
 // Returns current Login user ID
 function getCurrentUserID(req) {
     try {
-        decoded_payload = jwt.decode(req.cookies.token)
-        console.log('decoded'+decoded_payload.payload);
+       const decoded_payload = jwt.decode(req.cookies.token)
 
         return decoded_payload.payload;
     } catch (error) {
