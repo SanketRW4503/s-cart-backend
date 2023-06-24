@@ -35,7 +35,6 @@ function isUserAlreadyLogin(req, res, next) {
     try {
         let d = req.cookies.token
         if (d) {
-            console.log('cookie re'+d);
             next()
 
         } else {
