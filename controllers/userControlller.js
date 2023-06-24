@@ -80,8 +80,12 @@ async function getUserInfo(req, res) {
     try {
         let userId = getCurrentUserID(req)
         let result = await userModel.findOne({ _id: userId })
-        res.json({ success: true, profile: { firstname: result.firstname, lastname: result.lastname, gender: result.gender,
-            contact_no:result.contact_no, email: result.email, _id: result.id } })
+        res.json({
+            success: true, profile: {
+                firstname: result.firstname, lastname: result.lastname, gender: result.gender,
+                contact_no: result.contact_no, email: result.email, _id: result.id
+            }
+        })
 
     } catch (error) {
         res.json({ success: false, error })
@@ -92,25 +96,31 @@ async function getUserInfo(req, res) {
 
 // this will edit the user information and save it to the db
 
-async function edituserinfo(req,res){
+async function edituserinfo(req, res) {
 
     try {
-        const result = await userModel.find({email:req.body.email});
-        if(result){
-            result.firstname= req.body.firstname;
-            result.lastname= req.body.lastname;
-            result.contact_no= req.body.contact_no;
-            result.gender= req.body.gender;
 
-            result= await result.save()
-            res.json({success:true,message:'Profile Updated Successfully !'});
+        let result = await userModel.findOne({ email: req.body.email });
+
+        if (result !== null) {
+
+            result.firstname = req.body.firstname;
+            result.lastname = req.body.lastname;
+            result.contact_no = req.body.contact_no;
+            result.gender = req.body.gender;
+
+            await result.save();
+
+            res.json({ success: true, message: 'Profile Updated Successfully !' });
+        } else {
+            res.json({ success: false, message: 'User Not Found & Login Again !' });
         }
     } catch (error) {
-        res.json({success:false,message:error})
+        res.json({ success: false, message: error })
     }
 
 }
 
 
 
-export { signupHandler, logoutUser, loginUser, getUserInfo,edituserinfo };
+export { signupHandler, logoutUser, loginUser, getUserInfo, edituserinfo };

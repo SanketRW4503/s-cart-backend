@@ -29,11 +29,11 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: false,
         minLength: 8
     }, confirmpassword: {
         type: String,
-        required: true,
+        required: false,
         minLength: 8,
         validate: function () {
             return this.password === this.confirmpassword ? true : false
