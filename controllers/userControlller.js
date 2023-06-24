@@ -8,11 +8,11 @@ async function signupHandler(req, res) {
     try {
 
         let user = await userModel.create(req.body);
-        setCookie(user, res,'user successfully created');
+        setCookie(user, res, 'user successfully created');
 
 
     } catch (err) {
-        res.json({ success: false, meesgae:"error is "+err })
+        res.json({ success: false, meesgae: "error is " + err })
     }
 
 
@@ -27,10 +27,10 @@ async function logoutUser(req, res) {
 
         let d = req.cookies.token
         if (d) {
-            res.clearCookie('token',{
-            secure: true, // Only send the cookie over HTTPS
-            sameSite: 'none', // Allow cross-site access
-  });
+            res.clearCookie('token', {
+                secure: true, // Only send the cookie over HTTPS
+                sameSite: 'none', // Allow cross-site access
+            });
             res.json({ success: true, messgae: "successfully logout" })
 
         } else {
@@ -54,8 +54,8 @@ async function loginUser(req, res) {
         if (result) {
             bcrypt.compare(req.body.password, result.password).then((r) => {
                 if (r) {
-                    setCookie(result, res,`welcome back ${result.name} !`)
-                   
+                    setCookie(result, res, `welcome back ${result.name} !`)
+
                 } else {
                     res.json({ success: false, message: "INVALID EMAIL OR PASSWORD" })
 
@@ -80,7 +80,8 @@ async function getUserInfo(req, res) {
     try {
         let userId = getCurrentUserID(req)
         let result = await userModel.findOne({ _id: userId })
-        res.json({ success: true, profile: { firstname: result.firstname, lastname: result.lastname, email: result.email, _id: result.id } })
+        res.json({ success: true, profile: { firstname: result.firstname, lastname: result.lastname, gender: result.gender,
+            contact_no:result.contact_no, email: result.email, _id: result.id } })
 
     } catch (error) {
         res.json({ success: false, error })
