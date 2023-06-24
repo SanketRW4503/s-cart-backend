@@ -80,7 +80,7 @@ async function getUserInfo(req, res) {
     try {
         let userId = getCurrentUserID(req)
         let result = await userModel.findOne({ _id: userId })
-        res.json({ success: true, profile: { name: result.firstname, name: result.lastname, email: result.email, _id: result.id } })
+        res.json({ success: true, profile: { firstname: result.firstname, lastname: result.lastname, email: result.email, _id: result.id } })
 
     } catch (error) {
         res.json({ success: false, error })
