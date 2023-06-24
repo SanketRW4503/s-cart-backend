@@ -90,8 +90,27 @@ async function getUserInfo(req, res) {
 
 }
 
+// this will edit the user information and save it to the db
+
+async function edituserinfo(req,res){
+
+    try {
+        const result = await userModel.find({email:req.body.email});
+        if(result){
+            result.firstname= req.body.firstname;
+            result.lastname= req.body.lastname;
+            result.contact_no= req.body.contact_no;
+            result.gender= req.body.gender;
+
+            result= await result.save()
+            res.json({success:true,message:'Profile Updated Successfully !'});
+        }
+    } catch (error) {
+        res.json({success:false,message:error})
+    }
+
+}
 
 
 
-
-export { signupHandler, logoutUser, loginUser, getUserInfo };
+export { signupHandler, logoutUser, loginUser, getUserInfo,edituserinfo };
