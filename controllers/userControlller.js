@@ -83,7 +83,7 @@ async function getUserInfo(req, res) {
         res.json({
             success: true, profile: {
                 firstname: result.firstname, lastname: result.lastname, gender: result.gender,
-                contact_no: result.contact_no, email: result.email, _id: result.id
+                contact_no: result.contact_no, email: result.email, _id: result.id,address:result.address
             }
         })
 
@@ -122,5 +122,21 @@ async function edituserinfo(req, res) {
 }
 
 
+// this function will add/update the user address 
+async function add_address(){
+    try {
+        let result = await userModel.findOne({ email: req.body.email });
 
-export { signupHandler, logoutUser, loginUser, getUserInfo, edituserinfo };
+        if(result!==null){
+            result.address=req.body.address
+            await result.save()
+            res.json({success:true,message:'Address Successfully Added !'})
+        }else{
+            res.json({success:false,message:'Please Login Again ! Invalid Credentials'})
+        }
+    } catch (error) {
+        res.json({success:true,error})
+    }
+}
+
+export { signupHandler, logoutUser, loginUser, getUserInfo, edituserinfo ,add_address};

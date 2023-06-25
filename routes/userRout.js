@@ -1,5 +1,5 @@
 import express from 'express';
-import { signupHandler, logoutUser, loginUser, getUserInfo ,edituserinfo} from '../controllers/userControlller.js';
+import { signupHandler, logoutUser, loginUser, getUserInfo ,edituserinfo,add_address} from '../controllers/userControlller.js';
 import { isUserAlreadyNotLogin, isUserAlreadyLogin } from '../utility/utility.js';
 import cartRout from './cartRout.js';
 
@@ -15,6 +15,7 @@ router.post('/login', isUserAlreadyNotLogin, loginUser)
 router.get('/logout', isUserAlreadyLogin, logoutUser)
 router.get('/myProfile', isUserAlreadyLogin, getUserInfo)
 router.post('/edit-profile', isUserAlreadyLogin, edituserinfo)
+router.post('/add-address', isUserAlreadyLogin, add_address)
 
 
 router.use('/cart', cartRout)
