@@ -7,7 +7,6 @@ import crypto, { Hmac } from 'crypto'
 
 
 export const checkoutfun = async (req, res) => {
-    console.log('request hit');
     const options = {
         amount: Number(req.body.amount * 100),
         currency: 'INR',
@@ -15,6 +14,7 @@ export const checkoutfun = async (req, res) => {
 
     try {
         const order = await instance.orders.create(options);
+        
         res.json({ success: true, order })
     } catch (error) {
         res.status(400).json({ success: false })
@@ -28,6 +28,7 @@ export const checkoutfun = async (req, res) => {
 
 
 export const payment_verification = async (req, res) => {
+console.log(req.body)
 const body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id
 
     const generated_signature = crypto
@@ -47,6 +48,9 @@ const body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id
 
 
 }
+
+
+
 
 
 
