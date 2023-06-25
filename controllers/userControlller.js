@@ -83,7 +83,8 @@ async function getUserInfo(req, res) {
         res.json({
             success: true, profile: {
                 firstname: result.firstname, lastname: result.lastname, gender: result.gender,
-                contact_no: result.contact_no, email: result.email, _id: result.id,address:result.address
+                contact_no: result.contact_no, email: result.email, _id: result.id
+                ,address:result.address
             }
         })
 
@@ -123,7 +124,7 @@ async function edituserinfo(req, res) {
 
 
 // this function will add/update the user address 
-async function add_address(){
+async function add_address(req,res){
     try {
         let result = await userModel.findOne({ email: req.body.email });
 
