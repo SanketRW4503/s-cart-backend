@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
         }
     },address: {
         type: String,
-        required: false,
+        required: true,
         default:undefined
     },
 });
