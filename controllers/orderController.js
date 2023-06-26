@@ -1,8 +1,9 @@
 import orderModel from '../models/orderModel.js';
+import { empty_cart } from './cartController.js';
 
 
 // this will save order to db :after success payment (this function parameters are comming from payment controller)
- export const save_order_to_db=async(data, res,razorpay_order_id)=>{
+ export const save_order_to_db=async(data, res,req,razorpay_order_id)=>{
     const product_details = JSON.parse(data.notes.order_data);
     const orderdetails = {
       email:data.notes.email,
@@ -16,9 +17,7 @@ import orderModel from '../models/orderModel.js';
     try {
       const result = await orderModel.create(orderdetails);
       if (result) {
-  
-          res.redirect(`https://ss-kart-231bd.web.app/payment/success/${razorpay_order_id}`);
-  
+          empty_cart(req,res)
       } else {
         
   

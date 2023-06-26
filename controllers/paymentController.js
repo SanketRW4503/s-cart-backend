@@ -33,7 +33,7 @@ export const payment_verification = async (req, res) => {
   if (generated_signature === razorpay_signature) {
     try {
       const data = await instance.orders.fetch(razorpay_order_id);
-      await save_order_to_db(data, res,razorpay_order_id);
+      await save_order_to_db(data, res,req,razorpay_order_id);
       
     } catch (error) {
       console.log(error);

@@ -94,19 +94,20 @@ async function remove_one_item_cart(req,res){
 
 // empty cart
 async function empty_cart(req,res){
-   
-    let cart = await cartModel.findOne({ userid: req.body.userid });
+    let userId = getCurrentUserID(req)
+
+    
+    let cart = await cartModel.findOne({ userid: userId });
 
     if(cart){
       
             cart.products.splice(0,cart.products.length);
             cart = await cart.save();
-            res.json({ success: true, message: "cart empty", cart });
-        
+            res.redirect(`https://ss-kart-231bd.web.app/payment/success/${razorpay_order_id}`);
+
     }else{
 
-        res.json({success:false,message:"INVALID USER ID or Cart empty"});
-
+        res.json({success:false})
     }
 
 
@@ -119,6 +120,7 @@ async function empty_cart(req,res){
 async function get_cart_items(req,res){
  
     try {
+
         const result= await cartModel.findOne({userid:req.body.userid});
         if(result!==null){
 
