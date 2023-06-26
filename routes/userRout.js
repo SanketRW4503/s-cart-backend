@@ -10,12 +10,12 @@ import cartRout from './cartRout.js';
 const router = express.Router()
 
 
-router.post('/signup', isUserAlreadyNotLogin, signupHandler)
-router.post('/login', isUserAlreadyNotLogin, loginUser)
-router.get('/logout', isUserAlreadyLogin, logoutUser)
-router.get('/myProfile', isUserAlreadyLogin, getUserInfo)
-router.post('/edit-profile', isUserAlreadyLogin, edituserinfo)
-router.post('/add-address', isUserAlreadyLogin, add_address)
+router.post('/signup', isUserAlreadyNotLogin, signupHandler);
+router.post('/login', isUserAlreadyNotLogin, loginUser);
+router.get('/logout', isUserAlreadyLogin, logoutUser);
+router.get('/myProfile', isUserAlreadyLogin, getUserInfo);
+router.post('/edit-profile', isUserAlreadyLogin, edituserinfo);
+router.post('/add-address', isUserAlreadyLogin, add_address);
 
 
 router.use('/cart', cartRout)

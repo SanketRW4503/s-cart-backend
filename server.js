@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import Razorpay from 'razorpay';
 import productsRouter from './routes/productsRout.js';
 import adminRouter from './routes/adminRout.js';
+import orderRout from './routes/orderRout.js'
 import userRouter from './routes/userRout.js';
 import categoryRouter from './routes/categoryRout.js';
 import paymentRouter from './routes/paymentRout.js';
@@ -47,3 +48,4 @@ app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/category', categoryRouter);
 app.use('/payment', paymentRouter);
+app.use('/order',orderRout)

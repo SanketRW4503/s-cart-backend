@@ -1,58 +1,46 @@
 import { instance } from '../server.js';
-import crypto, { Hmac } from 'crypto'
-
-
-
-
-
+import crypto from 'crypto';
+import { save_order_to_db } from './orderController.js';
 
 export const checkoutfun = async (req, res) => {
+  try {
+    const { order_data, amount, email } = req.body;
     const options = {
-        amount: Number(req.body.amount * 100),
-        currency: 'INR',
-    }
+      amount: Number(amount * 100),
+      currency: 'INR',
+      notes: {
+        email,
+        order_data: JSON.stringify(order_data)
+      }
+    };
 
-    try {
-        const order = await instance.orders.create(options);
-        
-        res.json({ success: true, order })
-    } catch (error) {
-        res.status(400).json({ success: false })
-    }
-
-
-}
-
-
-
-
+    const order = await instance.orders.create(options);
+    res.json({ success: true, order });
+  } catch (error) {
+    res.status(400).json({ success: false, error });
+  }
+};
 
 export const payment_verification = async (req, res) => {
-console.log(req.body)
-const body = req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+  const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
-    const generated_signature = crypto
-    .createHmac('sha256','rzt7YdCdZJKwOEpr4JCwtJKg')
-    .update(body.toString())
-    .digest('hex')
+  const generated_signature = crypto
+    .createHmac('sha256', 'rzt7YdCdZJKwOEpr4JCwtJKg')
+    .update(body)
+    .digest('hex');
 
-
-    
-  
-    if (generated_signature === req.body.razorpay_signature) {
-
-        res.redirect(`https://ss-kart-231bd.web.app/payment/success/${req.body.razorpay_order_id}`)
-    } else{
-        res.status(400).json({success:false,message:'Payment Failed'})
-    } 
-
-
-}
-
-
-
-
-
-
+  if (generated_signature === razorpay_signature) {
+    try {
+      const data = await instance.orders.fetch(razorpay_order_id);
+      await save_order_to_db(data, res,razorpay_order_id);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    res.status(400).json({ success: false, message: 'Payment Failed' });
+  }
+};
 
 
