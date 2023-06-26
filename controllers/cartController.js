@@ -94,7 +94,7 @@ async function remove_one_item_cart(req,res){
 
 
 // empty cart
-async function empty_cart(req,res){
+async function empty_cart(req,res,razorpay_order_id){
     let userId = getCurrentUserID(req)
 
     

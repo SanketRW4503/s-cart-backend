@@ -17,7 +17,7 @@ import { empty_cart } from './cartController.js';
     try {
       const result = await orderModel.create(orderdetails);
       if (result) {
-          empty_cart(req,res)
+          empty_cart(req,res,razorpay_order_id)
       } else {
         
   
