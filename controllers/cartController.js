@@ -1,5 +1,6 @@
 
 import cartModel from '../models/cartModel.js';
+import { getCurrentUserID } from '../utility/utility.js';
 
 // add item to cart 
 async function add_to_cart(req, res) {
