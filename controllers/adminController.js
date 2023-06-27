@@ -8,8 +8,9 @@ import bcrypt from 'bcrypt';
 async function loginhandle(req, res) {
 
     try {
-        result = await adminModel.find({ email: req.body.email });
-      
+       const result = await adminModel.find({ email: req.body.email });
+
+     
         bcrypt.compare(req.body.password, result[0].password).then((r) => {
             if (r) {
                 
@@ -23,6 +24,7 @@ async function loginhandle(req, res) {
         })
 
     } catch (error) {
+        console.log(error);
         res.json({ success: false, error })
     }
 

@@ -10,6 +10,7 @@ import userRouter from './routes/userRout.js';
 import categoryRouter from './routes/categoryRout.js';
 import paymentRouter from './routes/paymentRout.js';
 import connect_to_db from './database/db.js';
+import carouselRout from './routes/carouselRout.js';
 
 // env setup
 config({
@@ -49,3 +50,4 @@ app.use('/admin', adminRouter);
 app.use('/category', categoryRouter);
 app.use('/payment', paymentRouter);
 app.use('/order',orderRout)
+app.use('/carousel',carouselRout)
