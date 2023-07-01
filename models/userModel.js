@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import validator from 'email-validator';
-import bcrypt from 'bcrypt';
 
 
 
@@ -31,32 +30,16 @@ const userSchema = mongoose.Schema({
         type: String,
         required: false,
         minLength: 8
-    }, confirmpassword: {
-        type: String,
-        required: false,
-        minLength: 8,
-        validate: function () {
-            return this.password === this.confirmpassword ? true : false
-        }
-    },address: {
+    }, 
+    address: {
         type: String,
         default:'undefined'
     },
 });
 
 
-// removing confirm password from schema
-userSchema.pre('save',function(){
-    this.confirmpassword=undefined
-})
 
 
-// hashing password
-userSchema.pre('save',async function(){
-    let salt= await bcrypt.genSalt();
-    let hashedvalue= await bcrypt.hash(this.password,salt);
-    this.password=hashedvalue
-}) 
 
 
 

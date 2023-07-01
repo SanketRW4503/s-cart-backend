@@ -1,18 +1,31 @@
 import userModel from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import { setCookie, getCurrentUserID } from '../utility/utility.js';
-
+import verificationModel from '../models/verificationModel.js';
+import { verificationInit } from './verificationController.js';
 
 async function signupHandler(req, res) {
-
+    
     try {
+        let result= await userModel.findOne({email:req.body.email});
+        if(result){
+            res.json({success:true,message:'User Already Exists !'})
+        }else{
+            let user = await verificationModel.create(req.body);
 
-        let user = await userModel.create(req.body);
-        setCookie(user, res, 'user successfully created');
+            if(user){   
+               verificationInit(user.email,user.firstname,user.link_code,res);
+            }else{
+                res.json({ success: false, meesgae:  'link already send this email address' })
+            }
+        }
+
+       
+        // setCookie(user, res, 'user successfully created');
 
 
     } catch (err) {
-        res.json({ success: false, meesgae: "error is " + err })
+        res.json({ success: false, meesgae:  err })
     }
 
 

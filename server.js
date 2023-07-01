@@ -17,6 +17,7 @@ config({
   path: './database/config.env',
 });
 
+
 const app = express();
 
 // Use cors middleware
