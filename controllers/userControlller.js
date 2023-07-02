@@ -9,7 +9,7 @@ async function signupHandler(req, res) {
     try {
         let result= await userModel.findOne({email:req.body.email});
         if(result){
-            res.json({success:true,message:'User Already Exists !'})
+            res.json({success:false,message:'User Already Exists with given Email Id ! Pleaase Login'})
         }else{
 
             let user = await verificationModel.create(req.body);
