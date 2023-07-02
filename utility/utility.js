@@ -13,7 +13,7 @@ function setCookie(user, res,rec_message,redirect_status) {
         secure: true
     })
     if(redirect_status==true){
-        res.redirect(`https://ss-kart-231bd.web.app`);
+        res.redirect(`https://ss-kart-231bd.web.app/welcome`);
     }else{
         res.json({ success: true, message: rec_message });
 
