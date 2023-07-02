@@ -19,7 +19,7 @@ router.post('/add-address', isUserAlreadyLogin, add_address);
 
 
 router.get('/verify/:id', isUserAlreadyNotLogin, verifyuser);
-router.post('forgotpassword',isUserAlreadyNotLogin,forgot_password)
+router.post('/forgotpassword',isUserAlreadyNotLogin,forgot_password)
 router.post('/forgotpassword/:id',isUserAlreadyNotLogin,verify_forgot_password_link)
 
 router.use('/cart', cartRout)
