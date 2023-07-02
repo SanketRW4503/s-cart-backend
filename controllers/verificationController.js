@@ -21,21 +21,33 @@ const transporter = createTransport({
 });
 
 // this will send the verification link to user
-export async function verificationInit(email, name, link_code, res) {
+export async function verificationInit(email, name, link_code, res,forgot_password) {
+let html;
+let subject;
+  if(forgot_password==true){
+   html = `<h1>Hello ${name} </h1></br><p>Set your new s-kart account password through this link :
+    <a href='https://ss-kart-231bd.web.app/forgotpassword/${link_code}'>click here</a>
+    <b>Link is valid only for 15 minutes</b>
+    </p>`
+    subject='Forgot Password Link'
+  }else{
+    subject='Account Verification Link'
+    html= `<h1>Hello ${name} </h1></br><p>Pleaase click on below link to verify your s-kart account :
+    <a href='https://s-kart-backend.onrender.com/user/verify/${link_code}'>verify link</a>
+    <b>Link is valid only for 15 minutes</b>
+  </p>`
+  }
 
 
   const info = await transporter.sendMail({
     from: process.env.EMAIL_SENDER,
     to: email,
-    subject: "Vefication Link",
-    html: `<h1>Hello ${name} </h1></br><p>Pleaase click on below link to verify your s-kart account :
-            <a href='https://s-kart-backend.onrender.com/user/verify/${link_code}'>verify link</a>
-            <b>Link is valid only for 5 minutes</b>
-        </p>`,
+    subject: subject,
+    html: html,
   });
 
   if (info.rejected.length == 0) {
-    res.json({ success: true, message: 'Verification Link Has been sent to your Email id' });
+    res.json({ success: true, message: 'Link Has been sent to your Email id' });
 
   } else {
     res.json({ success: false, message: 'Something went wrong ! Try Again...' });
@@ -44,7 +56,31 @@ export async function verificationInit(email, name, link_code, res) {
 }
 
 
-// this will verify user 
+// verify forgot password link
+
+async function verify_forgot_password_link(req,res){
+
+  try {
+    const result = await verificationModel.findOne({ link_code: req.params.id });
+    if (result) {
+      // update the password 
+      updatepassword(result.email,req,res);
+
+    } else {
+      res.json({ success: false, message: 'Link Expired ' })
+
+    }
+  } catch (error) {
+    res.json({ success: false, message: 'Something Went Wrong !' })
+  }
+
+}
+
+
+
+
+
+// this will verify new user 
 async function verifyuser(req, res) {
 
 
@@ -102,7 +138,7 @@ async function storeuserdata(result, res) {
 
 }
 
-export default verifyuser;
+export {verifyuser,verify_forgot_password_link};
 
 
 

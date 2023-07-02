@@ -1,8 +1,8 @@
 import express from 'express';
-import { signupHandler, logoutUser, loginUser, getUserInfo ,edituserinfo,add_address} from '../controllers/userControlller.js';
+import { signupHandler, logoutUser, loginUser, getUserInfo ,edituserinfo,add_address, forgot_password} from '../controllers/userControlller.js';
 import { isUserAlreadyNotLogin, isUserAlreadyLogin } from '../utility/utility.js';
 import cartRout from './cartRout.js';
-import verifyuser from '../controllers/verificationController.js';
+import {verifyuser,verify_forgot_password_link} from '../controllers/verificationController.js';
 // Rest of your code
 
 
@@ -19,7 +19,8 @@ router.post('/add-address', isUserAlreadyLogin, add_address);
 
 
 router.get('/verify/:id', isUserAlreadyNotLogin, verifyuser);
-
+router.post('forgotpassword',isUserAlreadyNotLogin,forgot_password)
+router.post('/forgotpassword/:id',isUserAlreadyNotLogin,verify_forgot_password_link)
 
 router.use('/cart', cartRout)
 
