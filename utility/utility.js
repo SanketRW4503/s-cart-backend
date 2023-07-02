@@ -3,7 +3,7 @@ import adminModel from '../models/adminModel.js';
 
 
 // sets cookies
-function setCookie(user, res,rec_message) {
+function setCookie(user, res,rec_message,redirect_status) {
     const currentDate= new Date()
     const nextDay = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
 
@@ -12,8 +12,12 @@ function setCookie(user, res,rec_message) {
         sameSite: 'none', 
         secure: true
     })
-    res.json({ success: true, message: rec_message });
+    if(redirect_status==true){
+        res.redirect(`https://ss-kart-231bd.web.app`);
+    }else{
+        res.json({ success: true, message: rec_message });
 
+    }
 }
 
 

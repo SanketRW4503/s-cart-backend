@@ -11,17 +11,16 @@ async function signupHandler(req, res) {
         if(result){
             res.json({success:true,message:'User Already Exists !'})
         }else{
+
             let user = await verificationModel.create(req.body);
 
             if(user){   
                verificationInit(user.email,user.firstname,user.link_code,res);
-            }else{
-                res.json({ success: false, meesgae:  'link already send this email address' })
             }
         }
 
        
-        // setCookie(user, res, 'user successfully created');
+      
 
 
     } catch (err) {
@@ -67,7 +66,7 @@ async function loginUser(req, res) {
         if (result) {
             bcrypt.compare(req.body.password, result.password).then((r) => {
                 if (r) {
-                    setCookie(result, res, `welcome back ${result.firstname} !`)
+                    setCookie(result, res, `welcome back ${result.firstname} !`,redirect_status=false)
 
                 } else {
                     res.json({ success: false, message: "INVALID EMAIL OR PASSWORD" })

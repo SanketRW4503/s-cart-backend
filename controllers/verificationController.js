@@ -89,7 +89,7 @@ async function storeuserdata(result, res) {
 
     if (userdataref) {
 
-      setCookie(userdataref, res, 'user successfully created');
+      setCookie(userdataref, res, `Verification Done ! welcome to s-kart ${userdataref.firstname}`,redirect_status=true);
 
 
     } else {
