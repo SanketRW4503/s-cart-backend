@@ -88,8 +88,8 @@ async function storeuserdata(result, res) {
     let userdataref = await userModel.create(userdata);
 
     if (userdataref) {
-
-      setCookie(userdataref, res, `Verification Done ! welcome to s-kart ${userdataref.firstname}`,redirect_status=true);
+      let redirect_status=true;
+      setCookie(userdataref, res, `Verification Done ! welcome to s-kart ${userdataref.firstname}`,redirect_status);
 
 
     } else {
