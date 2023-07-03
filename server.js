@@ -22,7 +22,7 @@ const app = express();
 
 // Use cors middleware
 app.use(cors({
-  origin: ['https://ss-kart-231bd.web.app','https://s-kart-backend.onrender.com','api.razorpay.com'],
+  origin: process.env.FRONTEND_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
