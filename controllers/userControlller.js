@@ -4,24 +4,28 @@ import { setCookie, getCurrentUserID } from '../utility/utility.js';
 import verificationModel from '../models/verificationModel.js';
 import { verificationInit } from './verificationController.js';
 
+
 async function signupHandler(req, res) {
-    
     try {
         // check wheather any other user exists with given email id or not
         let result= await userModel.findOne({email:req.body.email});
         if(result){
             // if exists send message to user
             res.json({success:false,message:'User Already Exists with given Email Id ! Pleaase Login'})
+
         }else{
             const forgot_password=false;
 
             // check this user signup credentials are present in verification model or not 
-            let result = await verificationModel({email:req.body.email})
+            let result = await verificationModel.findOne({email:req.body.email})
+            console.log(result)
+
             if(result){
                 //if present send email 
                 verificationInit(result.email,result.firstname,result.link_code,res,forgot_password);
             }else{
                 // if details are not present in verification model then create it
+
                 let user = await verificationModel.create(req.body);
 
                 if(user){   
@@ -173,31 +177,48 @@ async function forgot_password(req,res){
 
     try {
         const result= await userModel.findOne({email:req.body.email});
-        
         if(result){
             const forgot_password=true;
-            let user = await verificationModel.create(result);
-            verificationInit(user.email,user.firstname,user.link_code,res,forgot_password);
+            let userdata={
+                firstname: result.firstname,
+                lastname: result.lastname,
+                gender: result.gender,
+                contact_no: result.contact_no,
+                email: result.email,
+                password: result.password
+                ,confirmpassword:result.confirmpassword
+                ,address: result.address
+            }
+            let verdata = await verificationModel.findOne({email:result.email});
+            if(verdata){
+                verificationInit(verdata.email,verdata.firstname,verdata.link_code,res,forgot_password);
 
+            }else{
+
+            let user = await verificationModel.create(userdata);
+            if(user){
+                verificationInit(user.email,user.firstname,user.link_code,res,forgot_password);
+
+            }
+            }
 
         }else{
             res.json({success:false,messge:'INVALID EMAIL ID'})
         }
         
     } catch (error) {
-        
+        console.log('eeror is '+error)
     }
 
 }
 
-async function updatepassword(email,req,res){
+async function updatepassword(userdata,req,res){
 
     try {
-        
-        const result = await userModel.findOne({email:email})
+        const result = await userModel.findOne({email:userdata.email})
         if(result){
-            result.password=req?.body?.newpassword;
-
+            
+            result.password=await hash_updated_pass(req?.body?.newpassword);
             await result.save();
 
             res.json({success:true,message:'Password Changed'})
@@ -211,5 +232,13 @@ async function updatepassword(email,req,res){
 
 }
 
+
+
+async function hash_updated_pass(pass){
+
+    let salt= await bcrypt.genSalt();
+    let hashedvalue= await bcrypt.hash(pass,salt);
+    return hashedvalue;
+}
 
 export {updatepassword,forgot_password, signupHandler, logoutUser, loginUser, getUserInfo, edituserinfo ,add_address};

@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import verificationModel from "../models/verificationModel.js";
 import userModel from "../models/userModel.js";
 import { setCookie } from "../utility/utility.js";
+import { updatepassword } from "./userControlller.js";
 
 // env setup
 config({
@@ -59,12 +60,11 @@ let subject;
 // verify forgot password link
 
 async function verify_forgot_password_link(req,res){
-
   try {
     const result = await verificationModel.findOne({ link_code: req.params.id });
     if (result) {
       // update the password 
-      updatepassword(result.email,req,res);
+      await updatepassword(result,req,res);
 
     } else {
       res.json({ success: false, message: 'Link Expired ' })
