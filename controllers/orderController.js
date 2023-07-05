@@ -44,3 +44,29 @@ import { empty_cart } from './cartController.js';
     }
 
   }
+
+
+
+  // this will return all orders to admin only 
+
+
+async function get_all_orders(req,res){
+
+
+  try {
+    
+    const result= await orderModel.find();
+    if(result){
+      res.json({success:true,result});
+    }else{
+      res.json({success:false,message:'No Orders Present'})
+    }
+
+  } catch (error) { 
+    res.json({success:false,message:'Error is '+error})
+  }
+
+}
+
+
+export default get_all_orders;
