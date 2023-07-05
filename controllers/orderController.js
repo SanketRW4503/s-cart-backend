@@ -7,6 +7,7 @@ import { empty_cart } from './cartController.js';
     const product_details = JSON.parse(data.notes.order_data);
     const orderdetails = {
       email:data.notes.email,
+      address:data.notes.address,
       order_id: data.id,
       payment_status: data.status,
       delevery_status:'Not Delivered'

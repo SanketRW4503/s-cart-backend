@@ -4,12 +4,13 @@ import { save_order_to_db } from './orderController.js';
 
 export const checkoutfun = async (req, res) => {
   try {
-    const { order_data, amount, email } = req.body;
+    const { order_data, amount, email,address } = req.body;
     const options = {
       amount: Number(amount * 100),
       currency: 'INR',
       notes: {
         email,
+        address,
         order_data: JSON.stringify(order_data)
       }
     };
