@@ -7,20 +7,14 @@ import cloudinary from '../utility/cloudinary.js';
 async function fetchAllProduct(req, res) {
     try {
 
-        let products = await productModel.find();
-        if (products) {
-            let allcollection = await categoryModel.find();
-            if (allcollection) {
-                let items = []
-                for (let i = 0; allcollection.length !== i; i++) {
-                    let data = products.filter((p) => p.category == allcollection[i].category)
-                    items.push(data);
-                }
+        let items = await productModel.find();
+        if (items) {
+          
                 res.json({ success: true, items })
 
             }
 
-        }
+        
 
 
 
