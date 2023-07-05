@@ -21,12 +21,15 @@ const productsSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-    imageUrl:{
-        type:String,
+    image:{
+        type:Object,
         required:true
     },rating:{
         type:String,
         required:true
+    },
+    search_keyword:{
+        type:Array,
     },
     addedAt:{
         type:Date,

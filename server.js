@@ -11,11 +11,11 @@ import categoryRouter from './routes/categoryRout.js';
 import paymentRouter from './routes/paymentRout.js';
 import connect_to_db from './database/db.js';
 import carouselRout from './routes/carouselRout.js';
-
 // env setup
 config({
   path: './database/config.env',
 });
+
 
 
 const app = express();
@@ -27,8 +27,12 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({ extended: true ,limit: '50mb'}))
+
+
+// app.use(express.urlencoded({ extended: true }));
 
 // Use cookie-parser middleware
 app.use(cookieParser());

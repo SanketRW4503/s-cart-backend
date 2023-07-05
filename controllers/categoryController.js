@@ -1,4 +1,5 @@
 import categoryModel from '../models/categoryModel.js';
+import productModel from '../models/productsModel.js';
 
 
 
@@ -29,11 +30,24 @@ async function get_category(req,res) {
     try {
 
         const allcollection = await categoryModel.find()
+        if(allcollection){
+            const products= await productModel.find();
+            if(products){
+                let items=[];
+                for (let i = 0; products.length !== i; i++) {
+                    let data = allcollection.filter((p) => p.category == products[i].category)
+                    items.push(data[0])
+                   
+                }
+                const categoryset = [...new Set(items)];
+           
+                res.json({ success: true, categoryset })
 
-        res.json({ success: true, allcollection })
+            }
+        }
     } catch (error) {
 
-        res.json({ success: false, message: 'SOME ERROR OCCURED !' })
+        res.json({ success: false, message: 'ERROR IS:'+error })
     }
 }
 
