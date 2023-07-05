@@ -1,10 +1,14 @@
 import orderModel from '../models/orderModel.js';
+import userModel from '../models/userModel.js';
 import { empty_cart } from './cartController.js';
 
 
 // this will save order to db :after success payment (this function parameters are comming from payment controller)
  export const save_order_to_db=async(data, res,req,razorpay_order_id)=>{
     const product_details = JSON.parse(data.notes.order_data);
+    
+  //  let address= getUserAdress(data.notes.email)
+  
     const orderdetails = {
       email:data.notes.email,
       address:data.notes.address,
@@ -67,6 +71,22 @@ async function get_all_orders(req,res){
     res.json({success:false,message:'Error is '+error})
   }
 
+}
+
+
+async function getUserAdress(email){
+
+
+  try {
+      const result = await userModel.findOne({email:email});
+      if(result){
+
+        return result.address;
+      }
+
+  } catch (error) {
+    console.log('error while fetching address '+error)
+  }
 }
 
 
