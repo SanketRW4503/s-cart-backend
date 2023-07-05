@@ -10,14 +10,12 @@ import { empty_cart } from './cartController.js';
     let address;
   
    try {
-    const data = await userModel.findOne({email:data.notes.email});
-    if(data){
+    const userdata = await userModel.findOne({email:data.notes.email});
+    if(userdata){
 
-      address = data.address
+      address = userdata.address
     }
-    } catch (error) {
-    console.log('error while fetching address '+error)
-    }
+   
 
     const orderdetails = {
       email:data.notes.email,
@@ -40,6 +38,10 @@ import { empty_cart } from './cartController.js';
       }
     } catch (error) {
       console.log(error);
+    }
+
+  } catch (error) {
+    console.log('error while fetching address '+error)
     }
   }
 
