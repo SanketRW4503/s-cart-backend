@@ -33,11 +33,12 @@ async function setProduct(req, res) {
         if (productdata?.image) {
             const cloudinaryres = await cloudinary.uploader.upload(productdata?.image, {
                 upload_preset: 's-kart',
+                width: 800, 
+                height: 800
             })
 
             if (cloudinaryres) {
                 productdata.image = cloudinaryres;
-                console.log(productdata)
                 let d = await productModel.create(productdata)
                 res.json({ success: true, message: 'Products Successfully added !' });
 
@@ -79,4 +80,29 @@ async function updateProduct(req, res) {
     }
 }
 
-export { fetchAllProduct, setProduct, updateProduct };
+
+
+// this will delete the products
+async function delete_product(req,res){
+
+    try {
+        const result = await productModel.deleteOne({_id:req.body._id});
+        if(result){
+            cloudinary.uploader.destroy(req.body.public_id, (error, result) => {
+                if (error) {
+                    res.json({success:false,message:'Product Deleted Successfully ! Image could not delete '})
+                } else {
+                    res.json({success:true,message:'Product Deleted Successfully !'})
+                }
+              });
+        }else{
+            res.json({success:false,message:'Product Not Found !'})
+        }
+    } catch (error) {
+        res.json({success:false,message:'error'+error})
+    }
+
+}
+
+
+export { fetchAllProduct, setProduct, updateProduct ,delete_product};
