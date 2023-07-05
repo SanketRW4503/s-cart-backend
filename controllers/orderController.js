@@ -10,7 +10,7 @@ import { empty_cart } from './cartController.js';
     let address;
   
    try {
-    const data = await userModel.findOne({email:email});
+    const data = await userModel.findOne({email:data.notes.email});
     if(data){
 
       address = data.address
