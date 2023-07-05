@@ -7,11 +7,11 @@ import { empty_cart } from './cartController.js';
  export const save_order_to_db=async(data, res,req,razorpay_order_id)=>{
     const product_details = JSON.parse(data.notes.order_data);
     
-  //  let address= getUserAdress(data.notes.email)
+   let address= getUserAdress(data.notes.email)
   
     const orderdetails = {
       email:data.notes.email,
-      address:data.notes.address,
+      address:address,
       order_id: data.id,
       payment_status: data.status,
       delevery_status:'Not Delivered'
