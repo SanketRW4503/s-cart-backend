@@ -7,8 +7,18 @@ import { empty_cart } from './cartController.js';
  export const save_order_to_db=async(data, res,req,razorpay_order_id)=>{
     const product_details = JSON.parse(data.notes.order_data);
     
-   let address= getUserAdress(data.notes.email)
+    let address;
   
+   try {
+    const data = await userModel.findOne({email:email});
+    if(data){
+
+      address = data.address
+    }
+    } catch (error) {
+    console.log('error while fetching address '+error)
+    }
+
     const orderdetails = {
       email:data.notes.email,
       address:address,
@@ -74,20 +84,7 @@ async function get_all_orders(req,res){
 }
 
 
-async function getUserAdress(email){
 
-
-  try {
-      const result = await userModel.findOne({email:email});
-      if(result){
-
-        return result.address;
-      }
-
-  } catch (error) {
-    console.log('error while fetching address '+error)
-  }
-}
 
 
 export default get_all_orders;
