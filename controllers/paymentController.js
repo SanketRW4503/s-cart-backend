@@ -1,6 +1,12 @@
 import { instance } from '../server.js';
 import crypto from 'crypto';
 import { save_order_to_db } from './orderController.js';
+import { config } from 'dotenv';
+
+
+config({
+  path: './database/config.env',
+});
 
 export const checkoutfun = async (req, res) => {
   try {
@@ -27,7 +33,7 @@ export const payment_verification = async (req, res) => {
   const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
   const generated_signature = crypto
-    .createHmac('sha256', 'rzt7YdCdZJKwOEpr4JCwtJKg')
+    .createHmac('sha256', process.env.HMAC_KEY)
     .update(body)
     .digest('hex');
 

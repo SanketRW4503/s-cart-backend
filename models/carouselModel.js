@@ -7,8 +7,9 @@ const carouselSchema= mongoose.Schema({
     name:{
         type:String,
     },
-    imageUrl:{
-        type:String
+    image:{
+        type:Object,
+        required:true
     }
     ,
     product_id:{

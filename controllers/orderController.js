@@ -63,6 +63,23 @@ import { empty_cart } from './cartController.js';
   }
 
 
+  export const updateDelivaryStatus= async (req,res)=>{
+
+        try {
+          const result= await orderModel.findOne({order_id:req.body.order_id})
+          if(result){
+            result.delevery_status=req.body.delivery_status;
+            console.log(result)
+            await result.save()
+
+            res.json({success:true,message:'Product Delivary Status Updated SuccessFfully !'});
+
+          }
+        } catch (error) {
+            res.json({success:false,message:'error is '+error})
+        }
+  }
+
 
   // this will return all orders to admin only 
 

@@ -104,7 +104,7 @@ async function empty_cart(req,res,razorpay_order_id){
       
             cart.products.splice(0,cart.products.length);
             cart = await cart.save();
-            res.redirect(`https://ss-kart-231bd.web.app/payment/success/${razorpay_order_id}`);
+            res.redirect(process.env.FRONTEND_PAYMENT_SUCCESS_ROUT+razorpay_order_id);
 
     }else{
 

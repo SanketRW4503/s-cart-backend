@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 import adminModel from '../models/adminModel.js';
+import { config } from 'dotenv';
 
+config({
+    path: './database/config.env',
+  });
 
 // sets cookies
 function setCookie(user, res,rec_message,redirect_status) {
@@ -13,7 +17,7 @@ function setCookie(user, res,rec_message,redirect_status) {
         secure: true
     })
     if(redirect_status==true){
-        res.redirect(`https://ss-kart-231bd.web.app/welcome`);
+        res.redirect(process.env.LOGIN_SUCCESS);
     }else{
         res.json({ success: true, message: rec_message });
 

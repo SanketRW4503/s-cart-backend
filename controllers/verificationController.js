@@ -27,14 +27,14 @@ let html;
 let subject;
   if(forgot_password==true){
    html = `<h1>Hello ${name} </h1></br><p>Set your new s-kart account password through this link :
-    <a href='https://ss-kart-231bd.web.app/forgotpassword/${link_code}'>click here</a>
+    <a href='${process.env.FRONTEND_FORGOT_PASSWORD+link_code}'>click here</a>
     <b>Link is valid only for 15 minutes</b>
     </p>`
     subject='Forgot Password Link'
   }else{
     subject='Account Verification Link'
     html= `<h1>Hello ${name} </h1></br><p>Pleaase click on below link to verify your s-kart account :
-    <a href='https://s-kart-backend.onrender.com/user/verify/${link_code}'>verify link</a>
+    <a href='${process.env.FROTEND_VERIFICATION_LINK+link_code}'>verify link</a>
     <b>Link is valid only for 15 minutes</b>
   </p>`
   }
