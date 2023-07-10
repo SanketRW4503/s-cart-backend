@@ -23,7 +23,7 @@ const app = express();
 
 // Use cors middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: [process.env.FRONTEND_URL,process.env.ADMIN_PANEL],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
