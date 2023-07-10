@@ -43,7 +43,7 @@ async function get_user_wishlist(req,res){
             if(result){
                 res.json({success:true,result})
             }else{
-                res.json({success:false,message:'User Not Found !'})
+                res.json({success:false,message:'Wishlist is Empty !'})
             }
     } catch (error) {
         res.json({success:false,message:error})
