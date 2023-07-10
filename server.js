@@ -11,6 +11,7 @@ import categoryRouter from './routes/categoryRout.js';
 import paymentRouter from './routes/paymentRout.js';
 import connect_to_db from './database/db.js';
 import carouselRout from './routes/carouselRout.js';
+import wishlistRout from './routes/wishListRout.js'
 // env setup
 config({
   path: './database/config.env',
@@ -56,3 +57,4 @@ app.use('/category', categoryRouter);
 app.use('/payment', paymentRouter);
 app.use('/order',orderRout)
 app.use('/carousel',carouselRout)
+app.use('/wishlist',wishlistRout)
