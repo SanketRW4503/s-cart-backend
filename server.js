@@ -50,6 +50,9 @@ app.listen(process.env.PORT, () => {
   console.log('Server is started');
 });
 
+
+
+
 app.use('/products', productsRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
@@ -58,3 +61,9 @@ app.use('/payment', paymentRouter);
 app.use('/order',orderRout)
 app.use('/carousel',carouselRout)
 app.use('/wishlist',wishlistRout)
+
+
+// homepage backend
+app.get('/',(req,res)=>{
+  res.send('Nice Working...')
+})
